@@ -44,11 +44,32 @@ canvas {
   height: 40px;
   border-radius: 5px;
   background-color: green;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .victory-count {
   margin-left: 5vw;
   color: #f0f0f0;
   font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #f0f0f0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.playbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #b810c3;
+  margin-top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

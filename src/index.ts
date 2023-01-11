@@ -1,4 +1,5 @@
 import { Combatant } from './lib/combatant';
+import { music } from './lib/settings';
 import { Sprite } from './lib/sprite';
 import { rectangularCollision, determineWinner } from './lib/utils';
 
@@ -9,12 +10,6 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 canvas.width = 1024;
 canvas.height = 576;
-
-const music = new Audio(
-  new URL('./assets/sounds/background.wav', import.meta.url).toString(),
-);
-music.loop = true;
-music.volume = 0.05;
 
 music.play();
 
@@ -71,16 +66,16 @@ const player2 = new Combatant(
 );
 
 const keys = {
-  a: {
+  left1: {
     pressed: false,
   },
-  d: {
+  right1: {
     pressed: false,
   },
-  ArrowRight: {
+  left2: {
     pressed: false,
   },
-  ArrowLeft: {
+  right2: {
     pressed: false,
   },
 };
@@ -103,15 +98,15 @@ function play() {
   player1.velocity.x = 0;
   player2.velocity.x = 0;
 
-  if (keys.a.pressed && player1.lastKey === 'a') {
+  if (keys.left1.pressed && player1.lastKey === 'a') {
     player1.velocity.x = -5;
-  } else if (keys.d.pressed && player1.lastKey === 'd') {
+  } else if (keys.right1.pressed && player1.lastKey === 'd') {
     player1.velocity.x = 5;
   }
 
-  if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
+  if (keys.left2.pressed && player2.lastKey === 'ArrowLeft') {
     player2.velocity.x = -5;
-  } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
+  } else if (keys.right2.pressed && player2.lastKey === 'ArrowRight') {
     player2.velocity.x = 5;
   }
 
@@ -157,20 +152,22 @@ play();
 const player1attack = new Audio(
   new URL('./assets/sounds/player1_hit.wav', import.meta.url).toString(),
 );
+player1attack.volume = parseInt(localStorage.getItem('volume')) / 100 || 0.5;
 
 const player2attack = new Audio(
   new URL('./assets/sounds/player2_hit.wav', import.meta.url).toString(),
 );
+player2attack.volume = parseInt(localStorage.getItem('volume')) / 100 || 0.5;
 
 window.addEventListener('keydown', (event) => {
   if (!player1.dead) {
     switch (event.key) {
       case 'd':
-        keys.d.pressed = true;
+        keys.right1.pressed = true;
         player1.lastKey = 'd';
         break;
       case 'a':
-        keys.a.pressed = true;
+        keys.left1.pressed = true;
         player1.lastKey = 'a';
         break;
       case 'w':
@@ -187,11 +184,11 @@ window.addEventListener('keydown', (event) => {
   if (!player2.dead) {
     switch (event.key) {
       case 'ArrowRight':
-        keys.ArrowRight.pressed = true;
+        keys.right2.pressed = true;
         player2.lastKey = 'ArrowRight';
         break;
       case 'ArrowLeft':
-        keys.ArrowLeft.pressed = true;
+        keys.left2.pressed = true;
         player2.lastKey = 'ArrowLeft';
         break;
       case 'ArrowUp':
@@ -209,20 +206,20 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'd':
-      keys.d.pressed = false;
+      keys.right1.pressed = false;
       break;
     case 'a':
-      keys.a.pressed = false;
+      keys.left1.pressed = false;
       break;
   }
 
   // player2 keys
   switch (event.key) {
     case 'ArrowRight':
-      keys.ArrowRight.pressed = false;
+      keys.right2.pressed = false;
       break;
     case 'ArrowLeft':
-      keys.ArrowLeft.pressed = false;
+      keys.left2.pressed = false;
       break;
   }
 });
