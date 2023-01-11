@@ -1,3 +1,5 @@
+import { Combatant } from './combatant';
+
 export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
@@ -10,13 +12,34 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-export function determineWinner(player1, player2) {
+export function determineWinner(player1: Combatant, player2: Combatant) {
   if (player1.health === player2.health) {
-    document.getElementById('displayText').innerHTML = 'Tie';
     console.log('Game end: tie');
   } else if (player1.health > player2.health) {
     console.log('Player 1 Wins');
+    player1.victories++;
+    if (player1.victories === 3) {
+    }
+
+    reset(player1, player2);
   } else if (player1.health < player2.health) {
     console.log('Player 2 Wins');
+    player2.victories++;
+    if (player2.victories === 3) {
+    }
+
+    reset(player1, player2);
   }
+}
+
+function reset(player1: Combatant, player2: Combatant) {
+  setTimeout(() => {
+    player1.dead = false;
+    player2.dead = false;
+    player1.health = 100;
+    player2.health = 100;
+
+    player1.position = { x: 100, y: 0 };
+    player2.position = { x: 800, y: 100 };
+  }, 2000);
 }
