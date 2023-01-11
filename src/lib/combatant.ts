@@ -72,10 +72,17 @@ export class Combatant extends Sprite {
     this.isAttacking = true;
   }
 
-  takeHit() {
+  takeHit(p: string) {
     this.health -= 20;
 
+    this.setHealthBar(p, `${500 * (this.health / 100)}px`);
+
     if (this.health === 0) this.dead = true;
+  }
+
+  setHealthBar(p: string, width: string) {
+    const bar = document.getElementById(`p${p}h`);
+    bar.style.width = width;
   }
 }
 

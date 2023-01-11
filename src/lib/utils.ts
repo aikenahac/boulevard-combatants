@@ -18,6 +18,9 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
   } else if (player1.health > player2.health) {
     console.log('Player 1 Wins');
     player1.victories++;
+    document.getElementById(
+      'p1v',
+    ).innerHTML = `Victories: ${player1.victories}`;
     if (player1.victories === 3) {
     }
 
@@ -25,6 +28,9 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
   } else if (player1.health < player2.health) {
     console.log('Player 2 Wins');
     player2.victories++;
+    document.getElementById(
+      'p2v',
+    ).innerHTML = `Victories: ${player2.victories}`;
     if (player2.victories === 3) {
     }
 
@@ -41,5 +47,8 @@ function reset(player1: Combatant, player2: Combatant) {
 
     player1.position = { x: 100, y: 0 };
     player2.position = { x: 800, y: 100 };
+
+    player1.setHealthBar('1', '500px');
+    player2.setHealthBar('2', '500px');
   }, 2000);
 }

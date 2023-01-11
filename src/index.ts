@@ -115,7 +115,7 @@ function play() {
     player1.isAttacking &&
     player1.currentFrames === 4
   ) {
-    player2.takeHit();
+    player2.takeHit('2');
     player1.isAttacking = false;
   }
 
@@ -131,7 +131,7 @@ function play() {
     player2.isAttacking &&
     player2.currentFrames === 2
   ) {
-    player1.takeHit();
+    player1.takeHit('1');
     player2.isAttacking = false;
   }
 
