@@ -25,7 +25,7 @@ export class Sprite {
 
   private loadImage() {
     // console.log(new URL(this.source, import.meta.url).toString());
-    this.image.src = new URL(this.source, import.meta.url).toString();
+    this.image.src = this.source;
   }
 
   render() {
@@ -47,8 +47,11 @@ export class Sprite {
     this.elapsedFrames++;
 
     if (this.elapsedFrames % this.holdFrames === 0) {
-      if (this.currentFrames < this.maxFrames - 1) this.currentFrames++;
-      else this.currentFrames = 0;
+      if (this.currentFrames < this.maxFrames - 1) {
+        this.currentFrames++;
+      } else {
+        this.currentFrames = 0;
+      }
     }
   }
 

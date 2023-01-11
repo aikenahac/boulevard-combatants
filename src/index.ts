@@ -10,6 +10,91 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 canvas.width = 1024;
 canvas.height = 576;
 
+const player1idle = new Image();
+player1idle.src = new URL(
+  './assets/player1/idle.png',
+  import.meta.url,
+).toString();
+
+const player1run = new Image();
+player1run.src = new URL(
+  './assets/player1/run.png',
+  import.meta.url,
+).toString();
+
+const player1jump = new Image();
+player1jump.src = new URL(
+  './assets/player1/jump.png',
+  import.meta.url,
+).toString();
+
+const player1fall = new Image();
+player1fall.src = new URL(
+  './assets/player1/fall.png',
+  import.meta.url,
+).toString();
+
+const player1attack = new Image();
+player1attack.src = new URL(
+  './assets/player1/attack.png',
+  import.meta.url,
+).toString();
+
+const player1takeHit = new Image();
+player1takeHit.src = new URL(
+  './assets/player1/take_hit.png',
+  import.meta.url,
+).toString();
+
+const player1death = new Image();
+player1death.src = new URL(
+  './assets/player1/death.png',
+  import.meta.url,
+).toString();
+
+// aaaa
+const player2idle = new Image();
+player2idle.src = new URL(
+  './assets/player2/idle.png',
+  import.meta.url,
+).toString();
+
+const player2run = new Image();
+player2run.src = new URL(
+  './assets/player2/run.png',
+  import.meta.url,
+).toString();
+
+const player2jump = new Image();
+player2jump.src = new URL(
+  './assets/player2/jump.png',
+  import.meta.url,
+).toString();
+
+const player2fall = new Image();
+player2fall.src = new URL(
+  './assets/player2/fall.png',
+  import.meta.url,
+).toString();
+
+const player2attack = new Image();
+player2attack.src = new URL(
+  './assets/player2/attack.png',
+  import.meta.url,
+).toString();
+
+const player2takeHit = new Image();
+player2takeHit.src = new URL(
+  './assets/player2/take_hit.png',
+  import.meta.url,
+).toString();
+
+const player2death = new Image();
+player2death.src = new URL(
+  './assets/player2/death.png',
+  import.meta.url,
+).toString();
+
 const background = new Sprite(
   ctx,
   { x: 0, y: 0 },
@@ -37,18 +122,22 @@ const player1 = new Combatant(
     idle: {
       source: new URL('./assets/player1/idle.png', import.meta.url).toString(),
       maxFrames: 8,
+      image: player1idle,
     },
     run: {
       source: new URL('./assets/player1/run.png', import.meta.url).toString(),
       maxFrames: 8,
+      image: player1run,
     },
     jump: {
       source: new URL('./assets/player1/jump.png', import.meta.url).toString(),
       maxFrames: 2,
+      image: player1jump,
     },
     fall: {
       source: new URL('./assets/player1/fall.png', import.meta.url).toString(),
       maxFrames: 2,
+      image: player1fall,
     },
     attack: {
       source: new URL(
@@ -56,6 +145,7 @@ const player1 = new Combatant(
         import.meta.url,
       ).toString(),
       maxFrames: 6,
+      image: player1attack,
     },
     takeHit: {
       source: new URL(
@@ -63,10 +153,12 @@ const player1 = new Combatant(
         import.meta.url,
       ).toString(),
       maxFrames: 4,
+      image: player1takeHit,
     },
     death: {
       source: new URL('./assets/player1/death.png', import.meta.url).toString(),
       maxFrames: 6,
+      image: player1death,
     },
   },
   {
@@ -92,18 +184,22 @@ const player2 = new Combatant(
     idle: {
       source: new URL('./assets/player2/idle.png', import.meta.url).toString(),
       maxFrames: 4,
+      image: player2idle,
     },
     run: {
       source: new URL('./assets/player2/run.png', import.meta.url).toString(),
       maxFrames: 10,
+      image: player2run,
     },
     jump: {
       source: new URL('./assets/player2/jump.png', import.meta.url).toString(),
       maxFrames: 2,
+      image: player2jump,
     },
     fall: {
       source: new URL('./assets/player2/fall.png', import.meta.url).toString(),
       maxFrames: 2,
+      image: player2fall,
     },
     attack: {
       source: new URL(
@@ -111,6 +207,7 @@ const player2 = new Combatant(
         import.meta.url,
       ).toString(),
       maxFrames: 4,
+      image: player2attack,
     },
     takeHit: {
       source: new URL(
@@ -118,10 +215,12 @@ const player2 = new Combatant(
         import.meta.url,
       ).toString(),
       maxFrames: 3,
+      image: player2takeHit,
     },
     death: {
       source: new URL('./assets/player2/death.png', import.meta.url).toString(),
       maxFrames: 7,
+      image: player2death,
     },
   },
   {
@@ -150,7 +249,7 @@ const keys = {
 };
 
 function play() {
-  window.requestAnimationFrame(play);
+  window.requestAnimationFrame(play.bind(this));
 
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -168,8 +267,8 @@ function play() {
   player2.velocity.x = 0;
 
   if (keys.a.pressed && player1.lastKey === 'a') {
-    player1.velocity.x = -5;
     player1.setSprite('run');
+    player1.velocity.x = -5;
   } else if (keys.d.pressed && player1.lastKey === 'd') {
     player1.velocity.x = 5;
     player1.setSprite('run');
@@ -178,25 +277,20 @@ function play() {
   if (player1.velocity.y < 0) player1.setSprite('jump');
   else if (player1.velocity.y > 0) player1.setSprite('fall');
 
-  // player2 movement
   if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
     player2.velocity.x = -5;
     player2.setSprite('run');
   } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
     player2.velocity.x = 5;
     player2.setSprite('run');
-  } else {
-    player2.setSprite('idle');
-  }
+  } else player2.setSprite('idle');
 
-  // jumping
   if (player2.velocity.y < 0) {
     player2.setSprite('jump');
   } else if (player2.velocity.y > 0) {
     player2.setSprite('fall');
   }
 
-  // detect for collision & player2 gets hit
   if (
     rectangularCollision({
       rectangle1: player1,
@@ -209,12 +303,10 @@ function play() {
     player1.isAttacking = false;
   }
 
-  // if player misses
   if (player1.isAttacking && player1.currentFrames === 4) {
     player1.isAttacking = false;
   }
 
-  // this is where our player gets hit
   if (
     rectangularCollision({
       rectangle1: player2,
@@ -227,12 +319,10 @@ function play() {
     player2.isAttacking = false;
   }
 
-  // if player misses
   if (player2.isAttacking && player2.currentFrames === 2) {
     player2.isAttacking = false;
   }
 
-  // end game based on health
   if (player2.health <= 0 || player1.health <= 0) {
     determineWinner(player1, player2);
   }

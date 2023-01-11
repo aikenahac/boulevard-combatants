@@ -11,12 +11,12 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
 }
 
 export function determineWinner(player1, player2) {
-  (document.querySelector('#displayText') as any).style.display = 'flex';
   if (player1.health === player2.health) {
-    document.querySelector('#displayText').innerHTML = 'Tie';
+    document.getElementById('displayText').innerHTML = 'Tie';
+    console.log('Game end: tie');
   } else if (player1.health > player2.health) {
-    document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
+    console.log('Player 1 Wins');
   } else if (player1.health < player2.health) {
-    document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
+    console.log('Player 2 Wins');
   }
 }
