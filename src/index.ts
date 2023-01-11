@@ -152,12 +152,12 @@ play();
 const player1attack = new Audio(
   new URL('./assets/sounds/player1_hit.wav', import.meta.url).toString(),
 );
-player1attack.volume = parseInt(localStorage.getItem('volume')) / 100 || 0.5;
+player1attack.volume = /*parseInt(localStorage.getItem('volume')) / 100 || */ 0.5;
 
 const player2attack = new Audio(
   new URL('./assets/sounds/player2_hit.wav', import.meta.url).toString(),
 );
-player2attack.volume = parseInt(localStorage.getItem('volume')) / 100 || 0.5;
+player2attack.volume = /*parseInt(localStorage.getItem('volume')) / 100 ||*/ 0.5;
 
 window.addEventListener('keydown', (event) => {
   if (!player1.dead) {
