@@ -10,6 +10,14 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 canvas.width = 1024;
 canvas.height = 576;
 
+const music = new Audio(
+  new URL('./assets/sounds/background.wav', import.meta.url).toString(),
+);
+music.loop = true;
+music.volume = 0.05;
+
+music.play();
+
 const background = new Sprite(
   ctx,
   { x: 0, y: 0 },

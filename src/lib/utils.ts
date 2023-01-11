@@ -18,9 +18,9 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
   } else if (player1.health > player2.health) {
     console.log('Player 1 Wins');
     player1.victories++;
-    document.getElementById(
-      'p1v',
-    ).innerHTML = `Victories: ${player1.victories}`;
+    document.getElementById('p1v').innerHTML = `Victories: ${
+      player1.victories.toString()[0]
+    }`;
     if (player1.victories === 3) {
     }
 
@@ -28,9 +28,9 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
   } else if (player1.health < player2.health) {
     console.log('Player 2 Wins');
     player2.victories++;
-    document.getElementById(
-      'p2v',
-    ).innerHTML = `Victories: ${player2.victories}`;
+    document.getElementById('p2v').innerHTML = `Victories: ${
+      player2.victories.toString()[0]
+    }`;
     if (player2.victories === 3) {
     }
 
