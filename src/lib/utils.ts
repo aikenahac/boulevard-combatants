@@ -12,15 +12,21 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+const winResult = document.getElementById('result-text');
+
 export function determineWinner(player1: Combatant, player2: Combatant) {
   if (player1.health === player2.health) {
     console.log('Game end: tie');
   } else if (player1.health > player2.health) {
     console.log('Player 1 Wins');
+    winResult.innerHTML = 'Player 1 Wins this round!';
+    winResult.style.display = 'block';
 
     reset(player1, player2);
   } else if (player1.health < player2.health) {
     console.log('Player 2 Wins');
+    winResult.innerHTML = 'Player 2 Wins this round!';
+    winResult.style.display = 'block';
 
     reset(player1, player2);
   }
@@ -52,7 +58,49 @@ function reset(player1: Combatant, player2: Combatant) {
 
     player1.setHealthBar('1', '500px');
     player2.setHealthBar('2', '500px');
+
+    winResult.style.display = 'none';
+
+    if (player1.victories === 3) {
+      winResult.innerHTML = 'Player 1 Wins the game!';
+      winResult.style.display = 'block';
+
+      player1.dead = true;
+      player2.dead = true;
+
+      resetGame(player1, player2);
+    }
+
+    if (player2.victories === 3) {
+      winResult.innerHTML = 'Player 2 Wins the game!';
+      winResult.style.display = 'block';
+
+      player1.dead = true;
+      player2.dead = true;
+
+      resetGame(player1, player2);
+    }
   }, 1000);
+}
+
+function resetGame(player1: Combatant, player2: Combatant) {
+  setTimeout(() => {
+    player1.victories = 0;
+    player2.victories = 0;
+
+    player1.dead = false;
+    player2.dead = false;
+
+    winResult.style.display = 'none';
+
+    document.getElementById(
+      'p1v',
+    ).innerHTML = `Victories: ${player1.victories}`;
+
+    document.getElementById(
+      'p2v',
+    ).innerHTML = `Victories: ${player2.victories}`;
+  }, 3000);
 }
 
 export function setGameControls(control: string, key: string) {
@@ -61,7 +109,11 @@ export function setGameControls(control: string, key: string) {
   newControls[control] = key;
 }
 
-export function defaultGameControls() {
+export function defaultSettings() {
+  if (localStorage.getItem('volume') === null) {
+    localStorage.setItem('volume', '50');
+  }
+
   if (localStorage.getItem('player1') === null) {
     const c = {
       jump: 'w',

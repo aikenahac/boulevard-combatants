@@ -1,23 +1,20 @@
-import { Controls, PlayerControls, defaultGameControls } from './utils';
+import { Controls, PlayerControls, defaultSettings } from './utils';
 
-localStorage.setItem('volume', JSON.stringify('50'));
-
-defaultGameControls();
+defaultSettings();
 
 export const music = new Audio(
   new URL('../assets/sounds/background.wav', import.meta.url).toString(),
 );
 music.loop = true;
-music.volume = parseInt(JSON.parse(localStorage.getItem('volume'))) / 100;
+music.volume = parseInt(localStorage.getItem('volume')) / 100;
 
 const volume = document.body.getElementsByTagName('input')[0];
-console.log(volume);
 
 volume?.addEventListener('change', (e: any) => {
   console.log('Setting el.');
   music.volume = parseInt(e.target.value) / 100;
   localStorage.setItem('volume', JSON.stringify(e.target.value));
-  console.log(parseInt(JSON.parse(localStorage.getItem('volume'))) / 100);
+  console.log(parseInt(localStorage.getItem('volume')) / 100);
 });
 
 const controls: PlayerControls = {

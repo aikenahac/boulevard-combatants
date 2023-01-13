@@ -166,12 +166,12 @@ play();
 const player1attack = new Audio(
   new URL('./assets/sounds/player1_hit.wav', import.meta.url).toString(),
 );
-player1attack.volume = /*parseInt(localStorage.getItem('volume')) / 100 || */ 0.5;
+player1attack.volume = parseInt(localStorage.getItem('volume')) / 100;
 
 const player2attack = new Audio(
   new URL('./assets/sounds/player2_hit.wav', import.meta.url).toString(),
 );
-player2attack.volume = /*parseInt(localStorage.getItem('volume')) / 100 ||*/ 0.5;
+player2attack.volume = parseInt(localStorage.getItem('volume')) / 100;
 
 window.addEventListener('keydown', (event) => {
   if (!player1.dead) {
@@ -229,11 +229,11 @@ window.addEventListener('keyup', (event) => {
 
   // player2 keys
   switch (event.key) {
-    case controls.p2.right:
-      keys.right2.pressed = false;
+    case controls.p2.left:
+      keys.left2.pressed = false;
       break;
     case controls.p2.right:
-      keys.left2.pressed = false;
+      keys.right2.pressed = false;
       break;
   }
 });

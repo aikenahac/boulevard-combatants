@@ -73,3 +73,19 @@ a:visited {
   margin-top: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+#result {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+#result-text {
+  color: #f0f0f0;
+  font-family: 'Courier New', Courier, monospace;
+  display: none;
+}
