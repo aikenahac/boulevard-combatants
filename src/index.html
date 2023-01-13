@@ -18,8 +18,53 @@
 
     <h3>Controls</h3>
 
-    <h4>Player 1</h4>
-    <div class="p1controls"></div>
+    <div id="controls">
+      <div id="p1controls">
+        <h4>Player 1</h4>
+        <table>
+          <tr>
+            <td><label for="p1jump">Jump</label></td>
+            <td><input name="jump" type="text" id="p1jump" /></td>
+          </tr>
+          <tr>
+            <td><label for="p1left">Left</label></td>
+            <td><input name="left" type="text" id="p1left" /></td>
+          </tr>
+          <tr>
+            <td><label for="p1right">Right</label></td>
+            <td><input name="right" type="text" id="p1right" /></td>
+          </tr>
+          <tr>
+            <td><label for="p1attack">Attack</label></td>
+            <td><input name="attack" type="text" id="p1attack" /></td>
+          </tr>
+        </table>
+        <button id="p1save">Save</button>
+      </div>
+
+      <div id="p2controls">
+        <h4>Player 2</h4>
+        <table>
+          <tr>
+            <td><label for="p2jump">Jump</label></td>
+            <td><input name="jump" type="text" id="p2jump" /></td>
+          </tr>
+          <tr>
+            <td><label for="p2left">Left</label></td>
+            <td><input name="left" type="text" id="p2left" /></td>
+          </tr>
+          <tr>
+            <td><label for="p2right">Right</label></td>
+            <td><input name="right" type="text" id="p2right" /></td>
+          </tr>
+          <tr>
+            <td><label for="p2attack">Attack</label></td>
+            <td><input name="attack" type="text" id="p2attack" /></td>
+          </tr>
+        </table>
+        <button id="p2save">Save</button>
+      </div>
+    </div>
 
     <div class="playbtn">
       <a href="game.html">Play</a>

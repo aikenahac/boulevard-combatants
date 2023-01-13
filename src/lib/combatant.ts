@@ -21,6 +21,8 @@ export class Combatant extends Sprite {
       height: 0,
       width: 0,
     },
+    public attackSource: string,
+    public maxAttackFrames: number,
     public color: string = 'red',
     public victories: number = 0,
   ) {
@@ -56,6 +58,13 @@ export class Combatant extends Sprite {
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
+    this.ctx.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height,
+    );
+
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
@@ -73,7 +82,7 @@ export class Combatant extends Sprite {
   }
 
   takeHit(p: string) {
-    this.health -= 20;
+    this.health -= 10;
 
     this.setHealthBar(p, `${500 * (this.health / 100)}px`);
 

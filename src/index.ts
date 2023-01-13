@@ -1,7 +1,12 @@
 import { Combatant } from './lib/combatant';
 import { music } from './lib/settings';
 import { Sprite } from './lib/sprite';
-import { rectangularCollision, determineWinner } from './lib/utils';
+import {
+  rectangularCollision,
+  determineWinner,
+  Controls,
+  PlayerControls,
+} from './lib/utils';
 
 const canvas = document.body.getElementsByTagName('canvas')[0];
 const ctx = canvas.getContext('2d');
@@ -12,6 +17,11 @@ canvas.width = 1024;
 canvas.height = 576;
 
 music.play();
+
+const controls: PlayerControls = {
+  p1: JSON.parse(localStorage.getItem('player1')),
+  p2: JSON.parse(localStorage.getItem('player2')),
+};
 
 const background = new Sprite(
   ctx,
@@ -38,12 +48,14 @@ const player1 = new Combatant(
   { x: 215, y: 157 },
   {
     offset: {
-      x: 100,
+      x: 60,
       y: 50,
     },
-    width: 160,
+    width: 100,
     height: 50,
   },
+  new URL('./assets/player1/attack.png', import.meta.url).toString(),
+  6,
 );
 
 const player2 = new Combatant(
@@ -57,12 +69,14 @@ const player2 = new Combatant(
   { x: 215, y: 167 },
   {
     offset: {
-      x: -170,
+      x: -100,
       y: 50,
     },
-    width: 170,
+    width: 100,
     height: 50,
   },
+  new URL('./assets/player2/attack.png', import.meta.url).toString(),
+  4,
 );
 
 const keys = {
@@ -98,15 +112,15 @@ function play() {
   player1.velocity.x = 0;
   player2.velocity.x = 0;
 
-  if (keys.left1.pressed && player1.lastKey === 'a') {
+  if (keys.left1.pressed && player1.lastKey === controls.p1.left) {
     player1.velocity.x = -5;
-  } else if (keys.right1.pressed && player1.lastKey === 'd') {
+  } else if (keys.right1.pressed && player1.lastKey === controls.p1.right) {
     player1.velocity.x = 5;
   }
 
-  if (keys.left2.pressed && player2.lastKey === 'ArrowLeft') {
+  if (keys.left2.pressed && player2.lastKey === controls.p2.left) {
     player2.velocity.x = -5;
-  } else if (keys.right2.pressed && player2.lastKey === 'ArrowRight') {
+  } else if (keys.right2.pressed && player2.lastKey === controls.p2.right) {
     player2.velocity.x = 5;
   }
 
@@ -162,18 +176,18 @@ player2attack.volume = /*parseInt(localStorage.getItem('volume')) / 100 ||*/ 0.5
 window.addEventListener('keydown', (event) => {
   if (!player1.dead) {
     switch (event.key) {
-      case 'd':
+      case controls.p1.right:
         keys.right1.pressed = true;
-        player1.lastKey = 'd';
+        player1.lastKey = controls.p1.right;
         break;
-      case 'a':
+      case controls.p1.left:
         keys.left1.pressed = true;
-        player1.lastKey = 'a';
+        player1.lastKey = controls.p1.left;
         break;
-      case 'w':
+      case controls.p1.jump:
         player1.velocity.y = -20;
         break;
-      case ' ':
+      case controls.p1.attack:
         player1.attack();
         console.log(player2.health);
         player1attack.play();
@@ -183,18 +197,18 @@ window.addEventListener('keydown', (event) => {
 
   if (!player2.dead) {
     switch (event.key) {
-      case 'ArrowRight':
+      case controls.p2.right:
         keys.right2.pressed = true;
-        player2.lastKey = 'ArrowRight';
+        player2.lastKey = controls.p2.right;
         break;
-      case 'ArrowLeft':
+      case controls.p2.left:
         keys.left2.pressed = true;
-        player2.lastKey = 'ArrowLeft';
+        player2.lastKey = controls.p2.left;
         break;
-      case 'ArrowUp':
+      case controls.p2.jump:
         player2.velocity.y = -20;
         break;
-      case 'ArrowDown':
+      case controls.p2.attack:
         player2.attack();
         console.log(player1.health);
         player2attack.play();
@@ -205,20 +219,20 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
-    case 'd':
+    case controls.p1.right:
       keys.right1.pressed = false;
       break;
-    case 'a':
+    case controls.p1.left:
       keys.left1.pressed = false;
       break;
   }
 
   // player2 keys
   switch (event.key) {
-    case 'ArrowRight':
+    case controls.p2.right:
       keys.right2.pressed = false;
       break;
-    case 'ArrowLeft':
+    case controls.p2.right:
       keys.left2.pressed = false;
       break;
   }

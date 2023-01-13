@@ -17,22 +17,10 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
     console.log('Game end: tie');
   } else if (player1.health > player2.health) {
     console.log('Player 1 Wins');
-    player1.victories++;
-    document.getElementById('p1v').innerHTML = `Victories: ${
-      player1.victories.toString()[0]
-    }`;
-    if (player1.victories === 3) {
-    }
 
     reset(player1, player2);
   } else if (player1.health < player2.health) {
     console.log('Player 2 Wins');
-    player2.victories++;
-    document.getElementById('p2v').innerHTML = `Victories: ${
-      player2.victories.toString()[0]
-    }`;
-    if (player2.victories === 3) {
-    }
 
     reset(player1, player2);
   }
@@ -40,6 +28,20 @@ export function determineWinner(player1: Combatant, player2: Combatant) {
 
 function reset(player1: Combatant, player2: Combatant) {
   setTimeout(() => {
+    if (player1.dead) {
+      player2.victories++;
+      document.getElementById(
+        'p2v',
+      ).innerHTML = `Victories: ${player2.victories}`;
+    }
+
+    if (player2.dead) {
+      player1.victories++;
+      document.getElementById(
+        'p1v',
+      ).innerHTML = `Victories: ${player1.victories}`;
+    }
+
     player1.dead = false;
     player2.dead = false;
     player1.health = 100;
@@ -50,5 +52,47 @@ function reset(player1: Combatant, player2: Combatant) {
 
     player1.setHealthBar('1', '500px');
     player2.setHealthBar('2', '500px');
-  }, 2000);
+  }, 1000);
+}
+
+export function setGameControls(control: string, key: string) {
+  let newControls: Controls;
+
+  newControls[control] = key;
+}
+
+export function defaultGameControls() {
+  if (localStorage.getItem('player1') === null) {
+    const c = {
+      jump: 'w',
+      left: 'a',
+      right: 'd',
+      attack: ' ',
+    };
+
+    localStorage.setItem('player1', JSON.stringify(c));
+  }
+
+  if (localStorage.getItem('player2') === null) {
+    const c: Controls = {
+      jump: 'ArrowUp',
+      left: 'ArrowLeft',
+      right: 'ArrowRight',
+      attack: 'ArrowDown',
+    };
+
+    localStorage.setItem('player2', JSON.stringify(c));
+  }
+}
+
+export interface Controls {
+  jump?: string;
+  left?: string;
+  right?: string;
+  attack?: string;
+}
+
+export interface PlayerControls {
+  p1: Controls;
+  p2: Controls;
 }

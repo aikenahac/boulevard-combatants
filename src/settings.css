@@ -62,8 +62,39 @@ a:visited {
 }
 
 input {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
-.p1controls {
+tr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+td {
+  color: #f0f0f0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+td input {
+  background-color: #2b2b2b;
+  border-color: #2b2b2b;
+  border-radius: 10px;
+  color: #f0f0f0;
+}
+
+#p1controls,
+#p2controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
